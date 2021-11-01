@@ -1,5 +1,7 @@
 # Task Master
 
+## Lab26
+
 An android application which allows users to manage their tasks . version: 1.0.0
 
 - create a home page has an image and two buttons (add task , all tasks) to redirect to other activities.
@@ -16,3 +18,22 @@ An android application which allows users to manage their tasks . version: 1.0.0
 
 ## All Tasks Page
 ![all tasks](screenshots/alltasks.png)
+
+
+## Lab27
+
+- task details page which shows the task title and the descreption.
+
+- a setting page which the user can change his username from there.
+
+## Home Page
+![home](screenshots/home27.png)
+
+## Settings Page
+![add task](screenshots/settings.png)
+
+## Task Detail Page
+
+![tasks detail](screenshots/task1.png)
+![tasks detail](screenshots/task2.png)
+![tasks detail](screenshots/task3.png)
