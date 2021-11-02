@@ -16,6 +16,7 @@ import java.util.List;
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
     List <Task> allTasks = new ArrayList<>();
 
+
     public TaskAdapter(List<Task> allTasks) {
         this.allTasks = allTasks;
     }
@@ -27,15 +28,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         public TaskViewHolder(@NonNull View itemView) {
             super(itemView);
             this.itemView = itemView;
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent goToTaskDetails = new Intent(v.getContext(), TaskDetail.class);
-                        goToTaskDetails.putExtra("task", task.title+' '+task.body + ' '+ task.state);
-                        v.getContext().startActivity(goToTaskDetails);
-                    }
-            });
 
         }
     }
@@ -49,8 +41,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TaskAdapter.TaskViewHolder taskViewHolder, int i) {
-        taskViewHolder.task = allTasks.get(i);
+    public void onBindViewHolder(@NonNull TaskAdapter.TaskViewHolder taskViewHolder, int position) {
+        taskViewHolder.task = allTasks.get(position);
 //        Button fragment= taskViewHolder.itemView.findViewById(R.id.fragmentButton);
         TextView taskTitle = taskViewHolder.itemView.findViewById(R.id.taskTitleInFragment);
         TextView taskBody = taskViewHolder.itemView.findViewById(R.id.taskBodyInFragment);
@@ -58,6 +50,15 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         taskTitle.setText(taskViewHolder.task.title);
         taskBody.setText(taskViewHolder.task.body);
         taskState.setText(taskViewHolder.task.state);
+
+        taskViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goToTaskDetails = new Intent(v.getContext(), TaskDetail.class);
+                goToTaskDetails.putExtra("title", allTasks.get(position).title);
+                v.getContext().startActivity(goToTaskDetails);
+            }
+        });
     }
 
     @Override

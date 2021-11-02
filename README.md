@@ -37,3 +37,11 @@ An android application which allows users to manage their tasks . version: 1.0.0
 ![tasks detail](screenshots/task1.png)
 ![tasks detail](screenshots/task2.png)
 ![tasks detail](screenshots/task3.png)
+
+## Lab29
+
+create a recycler view to show 3 harcoded tasks.
+
+## Home Page
+![home](screenshots/lab29.png)
+
