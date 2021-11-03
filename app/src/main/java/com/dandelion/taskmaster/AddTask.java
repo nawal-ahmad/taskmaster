@@ -20,7 +20,7 @@ public class AddTask extends AppCompatActivity {
         // get all edit text data
         EditText taskTitle = findViewById(R.id.taskTitle);
         EditText taskBody = findViewById(R.id.taskBody);
-//        EditText taskState = findViewById(R.id.taskState);
+        EditText taskState = findViewById(R.id.taskState);
         // get add task button
         Button addTaskBtn = findViewById(R.id.add);
         // add listener
@@ -30,12 +30,12 @@ public class AddTask extends AppCompatActivity {
                 AppDatabase appDatabase;
                 String title = taskTitle.getText().toString();
                 String body = taskBody.getText().toString();
-//                String state = taskState.getText().toString();
+                String state = taskState.getText().toString();
 
                 appDatabase = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "tasks").allowMainThreadQueries().fallbackToDestructiveMigration().build();
 
                 // save input fields into object
-                Task task = new Task(title,body,title);
+                Task task = new Task(title,body,state);
                 // save to db
                 appDatabase.taskDao().insertAll(task);
                 // redirect to menu page
