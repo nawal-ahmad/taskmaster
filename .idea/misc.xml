@@ -13,6 +13,8 @@
         <entry key="app/src/main/res/layout/activity_task_detail.xml" value="0.25" />
         <entry key="app/src/main/res/layout/colors_light_blue_lime.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/fragment_task.xml" value="0.33" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2712820512820513" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2712820512820513" />
       </map>
     </option>
   </component>
