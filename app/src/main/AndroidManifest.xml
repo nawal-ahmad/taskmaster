@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.dandelion.taskmaster">
 
     <application
@@ -8,25 +9,26 @@
         android:label="TaskMaster"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Taskmaster">
+        android:theme="@style/Theme.Taskmaster"
+        tools:replace="android:appComponentFactory"
+        tools:ignore="ExtraText">
         <activity
             android:name=".Settings"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".TaskDetail"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
+        <activity
+            android:name=".AllTasks"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".AddTask"
+            android:exported="true">
+        </activity>
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -36,8 +38,5 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AllTasks" />
-        <activity android:name=".AddTask" />
     </application>
-
 </manifest>
