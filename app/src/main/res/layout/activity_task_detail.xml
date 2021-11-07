@@ -7,7 +7,7 @@
     tools:context=".TaskDetail">
 
     <EditText
-        android:id="@+id/textDetails"
+        android:id="@+id/taskBody"
         android:layout_width="366dp"
         android:layout_height="287dp"
         android:lineSpacingExtra="8sp"
@@ -37,7 +37,7 @@
         app:layout_constraintVertical_bias="0.252" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/taskState"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Descripton"
