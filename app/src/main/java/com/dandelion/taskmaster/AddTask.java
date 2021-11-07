@@ -1,13 +1,13 @@
 package com.dandelion.taskmaster;
 
-import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.Toolbar;
+import android.widget.EditText;
+
+import androidx.room.Room;
 
 public class AddTask extends AppCompatActivity {
 
@@ -16,18 +16,49 @@ public class AddTask extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
-        TextView textView = findViewById(R.id.textView5);
-        Button addTask = findViewById(R.id.add);
-        addTask.setOnClickListener(new View.OnClickListener() {
-            int counter = 1 ;
-            @SuppressLint("SetTextI18n")
+        //////////////////////////////////// save to database ///////////////////////////////
+        // get all edit text data
+        EditText taskTitle = findViewById(R.id.taskTitle);
+        EditText taskBody = findViewById(R.id.taskBody);
+        EditText taskState = findViewById(R.id.taskState);
+        // get add task button
+        Button addTaskBtn = findViewById(R.id.add);
+        // add listener
+        addTaskBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textView.setText("Total Tasks :"+ counter++);
-                Toast.makeText(getApplicationContext(), "Submitted!", Toast.LENGTH_LONG).show();
+                AppDatabase appDatabase;
+                String title = taskTitle.getText().toString();
+                String body = taskBody.getText().toString();
+                String state = taskState.getText().toString();
+
+                appDatabase = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "tasks").allowMainThreadQueries().fallbackToDestructiveMigration().build();
+
+                // save input fields into object
+                Task task = new Task(title,body,state);
+                // save to db
+                appDatabase.taskDao().insertAll(task);
+                // redirect to menu page
+                Intent goToHomePage = new Intent(AddTask.this, MainActivity.class);
+                startActivity(goToHomePage);
             }
         });
+
+
     }
+
+//        TextView textView = findViewById(R.id.textView5);
+//        Button addTask = findViewById(R.id.add);
+//        addTask.setOnClickListener(new View.OnClickListener() {
+//            int counter = 1 ;
+//            @SuppressLint("SetTextI18n")
+//            @Override
+//            public void onClick(View v) {
+//                textView.setText("Total Tasks :"+ counter++);
+//                Toast.makeText(getApplicationContext(), "Submitted!", Toast.LENGTH_LONG).show();
+//            }
+//        });
+//    }
 }
 
 

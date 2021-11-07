@@ -38,10 +38,13 @@ An android application which allows users to manage their tasks . version: 1.0.0
 ![tasks detail](screenshots/task2.png)
 ![tasks detail](screenshots/task3.png)
 
-## Lab29
+## Lab28
 
 create a recycler view to show 3 harcoded tasks.
 
 ## Home Page
 ![home](screenshots/lab29.png)
 
+## Lab29
+add data base to store data inside.
+when adding a new task from add task page the task will be stored in the data base.

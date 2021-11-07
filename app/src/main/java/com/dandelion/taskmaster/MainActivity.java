@@ -2,16 +2,17 @@ package com.dandelion.taskmaster;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import androidx.room.Room;
+
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -82,16 +83,31 @@ public class MainActivity extends AppCompatActivity {
         });
         /////////////////////////////////////////lab28//////////////////////////////////////////////
         // Create some data
-        List<Task> tasks = new ArrayList<>();
-        tasks.add(new Task("Task1","Task1 body", "new"));
-        tasks.add(new Task("Task2","Task2 body", "assigned"));
-        tasks.add(new Task("Task3","Task3 body", "complete"));
-        // get the recycler view
-        RecyclerView tasksRecyclerView= findViewById(R.id.recycle);
-        // set a layout manager for this view
-        tasksRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        // set the adapter for this recyclerView
-        tasksRecyclerView.setAdapter(new TaskAdapter(tasks));
+//        List<Task> tasks = new ArrayList<>();
+//        tasks.add(new Task("Task1","Task1 body", "new"));
+//        tasks.add(new Task("Task2","Task2 body", "assigned"));
+//        tasks.add(new Task("Task3","Task3 body", "complete"));
+//        // get the recycler view
+//        RecyclerView tasksRecyclerView= findViewById(R.id.recycle);
+//        // set a layout manager for this view
+//        tasksRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        // set the adapter for this recyclerView
+//        tasksRecyclerView.setAdapter(new TaskAdapter(tasks));
+
+        /////////////////////////////////////////lab29//////////////////////////////////////////////
+        // tasks from database
+        AppDatabase appDatabase;
+        appDatabase = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "tasks").allowMainThreadQueries().fallbackToDestructiveMigration().build();
+        List<Task> tasks = appDatabase.taskDao().getAll();
+
+        // get recycler view
+        RecyclerView allTasksRecyclerView = findViewById(R.id.recycle);
+
+        // set layout manager for the view (determine if liner list or grid list)
+        allTasksRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        // set the adapter for this recycler
+        allTasksRecyclerView.setAdapter(new TaskAdapter(tasks));
     }
 
     @Override
