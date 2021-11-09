@@ -1,5 +1,6 @@
 package com.dandelion.taskmaster;
 
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,14 +15,15 @@ import android.os.Looper;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.View;
+import android.view.*;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.amplifyframework.AmplifyException;
 import com.amplifyframework.api.aws.AWSApiPlugin;
 import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.core.Amplify;
+import com.amplifyframework.datastore.generated.model.Task;
+import com.amplifyframework.datastore.generated.model.Team;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +34,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        try {
+            Amplify.addPlugin(new AWSApiPlugin());
+            Amplify.configure(getApplicationContext());
+
+            Log.i("Main Activity", "Initialized Amplify");
+        } catch (AmplifyException error) {
+            Log.e("Main Activity", "Could not initialize Amplify", error);
+        }
+
 
         Button addTask = findViewById(R.id.addTask);
         addTask.setOnClickListener(new View.OnClickListener() {
@@ -51,19 +64,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        try {
-            Amplify.addPlugin(new AWSApiPlugin());
-            Amplify.configure(getApplicationContext());
+        Button settings = findViewById(R.id.Settings);
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goToSettings = new Intent(MainActivity.this, Settings.class);
+                startActivity(goToSettings);
+            }
+        });
 
-            Log.i("Main Activity", "Initialized Amplify");
-        } catch (AmplifyException error) {
-            Log.e("Main Activity", "Could not initialize Amplify", error);
-        }
 
-        List<Task> tasks = new ArrayList<>();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+        String team = sharedPreferences.getString("team", "team");
         RecyclerView myTasks = findViewById(R.id.recycle);
-        myTasks.setLayoutManager(new LinearLayoutManager(this));
-        myTasks.setAdapter(new TaskAdapter(tasks));
+
+        List<Team> teams = new ArrayList<>();
+        List<Task> tasks = new ArrayList<>();
+
 
 
         Handler handler = new Handler(Looper.myLooper(), new Handler.Callback() {
@@ -76,26 +93,33 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        myTasks.setLayoutManager(new LinearLayoutManager(this));
+        myTasks.setAdapter(new TaskAdapter(tasks));
+
+
+
         Amplify.API.query(
-                ModelQuery.list(com.amplifyframework.datastore.generated.model.Task.class),
+                ModelQuery.list(Team.class),
                 response -> {
-                    for (com.amplifyframework.datastore.generated.model.Task todo : response.getData()) {
-                        Task taskOrg = new Task(todo.getTitle(), todo.getBody(), todo.getState());
-                        Log.i("graph testing", todo.getTitle());
-                        tasks.add(taskOrg);
+                    for (Team team1 : response.getData()) {
+//                        Task taskOrg = new Task(todo.getTitle(), todo.getBody(), todo.getState());
+                        Log.i("graph testing", team1.getName());
+                        Log.i("graph testing", team1.getId());
+
+                        teams.add(team1);
+                    }
+                    for(int i =0 ; i< teams.size();i++){
+                        if (teams.get(i).getName().equals(team)){
+                            tasks.addAll(teams.get(i).getTasks());
+                            break;
+                        }
                     }
                     handler.sendEmptyMessage(1);
+                    Log.i("MyAmplifyApp", "out the loop");
                 },
                 error -> Log.e("MyAmplifyApp", "Query failure", error)
         );
-        Button settings = findViewById(R.id.Settings);
-        settings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent goToSettings = new Intent(MainActivity.this, Settings.class);
-                startActivity(goToSettings);
-            }
-        });
+
 
     }
 
@@ -104,8 +128,13 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
         String username = sharedPreferences.getString("username","user");
+        String team = sharedPreferences.getString("team", "team");
 
         TextView usernameField = findViewById(R.id.FirstText);
         usernameField.setText(username + "'s Tasks");
+
+        TextView teamName = findViewById(R.id.teamName);
+        teamName.setText(team);
+
     }
 }
