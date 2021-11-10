@@ -1,4 +1,4 @@
-type Task @model
+type Tasks @model
 @key(name: "byTeam", fields: ["teamID"]){
   id: ID!
   title: String!
@@ -11,6 +11,6 @@ type Task @model
 type Team @model {
   id: ID!
   name: String
-  tasks: [Task]  @connection(keyName: "byTeam", fields: ["id"])
+  tasks: [Tasks]  @connection(keyName: "byTeam", fields: ["id"])
 }
 

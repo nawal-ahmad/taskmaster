@@ -57,10 +57,10 @@
         android:text="Add Task"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.137"
+        app:layout_constraintHorizontal_bias="0.463"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/taskBody"
-        app:layout_constraintVertical_bias="0.336" />
+        app:layout_constraintVertical_bias="0.875" />
 
     <TextView
         android:id="@+id/textView2"
@@ -92,14 +92,14 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Total Tasks : "
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:text="choose your team"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.652"
+        app:layout_constraintHorizontal_bias="0.461"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.664" />
+        app:layout_constraintVertical_bias="0.683" />
 
     <EditText
         android:id="@+id/taskState"
@@ -132,7 +132,7 @@
         android:layout_width="95dp"
         android:layout_height="40dp"
         android:layout_marginStart="28dp"
-        android:layout_marginBottom="104dp"
+        android:layout_marginBottom="124dp"
         android:text="First"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -141,19 +141,19 @@
         android:id="@+id/secondRadio"
         android:layout_width="95dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="104dp"
+        android:layout_marginBottom="124dp"
         android:text="Second"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/thirdRadio"
-        app:layout_constraintHorizontal_bias="0.528"
+        app:layout_constraintHorizontal_bias="0.592"
         app:layout_constraintStart_toEndOf="@+id/firstRadio" />
 
     <RadioButton
         android:id="@+id/thirdRadio"
         android:layout_width="95dp"
         android:layout_height="40dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginBottom="104dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="124dp"
         android:text="Third"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

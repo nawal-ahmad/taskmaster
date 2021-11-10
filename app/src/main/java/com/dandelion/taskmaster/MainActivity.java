@@ -22,7 +22,7 @@ import com.amplifyframework.AmplifyException;
 import com.amplifyframework.api.aws.AWSApiPlugin;
 import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.core.Amplify;
-import com.amplifyframework.datastore.generated.model.Task;
+import com.amplifyframework.datastore.generated.model.Tasks;
 import com.amplifyframework.datastore.generated.model.Team;
 
 import java.util.ArrayList;
@@ -64,24 +64,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button settings = findViewById(R.id.Settings);
-        settings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent goToSettings = new Intent(MainActivity.this, Settings.class);
-                startActivity(goToSettings);
-            }
-        });
-
+        RecyclerView myTasks = findViewById(R.id.recycle);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
         String team = sharedPreferences.getString("team", "team");
-        RecyclerView myTasks = findViewById(R.id.recycle);
 
         List<Team> teams = new ArrayList<>();
-        List<Task> tasks = new ArrayList<>();
-
-
+        List <Tasks> tasks = new ArrayList<>();
+        List<Task> tasksFirst = new ArrayList<>();
 
         Handler handler = new Handler(Looper.myLooper(), new Handler.Callback() {
             @SuppressLint("NotifyDataSetChanged")
@@ -93,16 +83,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        myTasks.setLayoutManager(new LinearLayoutManager(this));
-        myTasks.setAdapter(new TaskAdapter(tasks));
-
-
 
         Amplify.API.query(
                 ModelQuery.list(Team.class),
                 response -> {
                     for (Team team1 : response.getData()) {
-//                        Task taskOrg = new Task(todo.getTitle(), todo.getBody(), todo.getState());
                         Log.i("graph testing", team1.getName());
                         Log.i("graph testing", team1.getId());
 
@@ -120,7 +105,17 @@ public class MainActivity extends AppCompatActivity {
                 error -> Log.e("MyAmplifyApp", "Query failure", error)
         );
 
+        myTasks.setLayoutManager(new LinearLayoutManager(this));
+        myTasks.setAdapter(new TaskAdapter(tasksFirst));
 
+        Button settings = findViewById(R.id.Settings);
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goToSettings = new Intent(MainActivity.this, Settings.class);
+                startActivity(goToSettings);
+            }
+        });
     }
 
     @Override

@@ -17,16 +17,16 @@ import com.amplifyframework.core.model.query.predicate.QueryField;
 
 import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 
-/** This is an auto generated class representing the Task type in your schema. */
+/** This is an auto generated class representing the Tasks type in your schema. */
 @SuppressWarnings("all")
 @ModelConfig(pluralName = "Tasks")
 @Index(name = "byTeam", fields = {"teamID"})
-public final class Task implements Model {
-  public static final QueryField ID = field("Task", "id");
-  public static final QueryField TITLE = field("Task", "title");
-  public static final QueryField BODY = field("Task", "body");
-  public static final QueryField STATE = field("Task", "state");
-  public static final QueryField TEAM = field("Task", "teamID");
+public final class Tasks implements Model {
+  public static final QueryField ID = field("Tasks", "id");
+  public static final QueryField TITLE = field("Tasks", "title");
+  public static final QueryField BODY = field("Tasks", "body");
+  public static final QueryField STATE = field("Tasks", "state");
+  public static final QueryField TEAM = field("Tasks", "teamID");
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="String", isRequired = true) String title;
   private final @ModelField(targetType="String") String body;
@@ -62,7 +62,7 @@ public final class Task implements Model {
       return updatedAt;
   }
   
-  private Task(String id, String title, String body, String state, Team team) {
+  private Tasks(String id, String title, String body, String state, Team team) {
     this.id = id;
     this.title = title;
     this.body = body;
@@ -77,14 +77,14 @@ public final class Task implements Model {
       } else if(obj == null || getClass() != obj.getClass()) {
         return false;
       } else {
-      Task task = (Task) obj;
-      return ObjectsCompat.equals(getId(), task.getId()) &&
-              ObjectsCompat.equals(getTitle(), task.getTitle()) &&
-              ObjectsCompat.equals(getBody(), task.getBody()) &&
-              ObjectsCompat.equals(getState(), task.getState()) &&
-              ObjectsCompat.equals(getTeam(), task.getTeam()) &&
-              ObjectsCompat.equals(getCreatedAt(), task.getCreatedAt()) &&
-              ObjectsCompat.equals(getUpdatedAt(), task.getUpdatedAt());
+      Tasks tasks = (Tasks) obj;
+      return ObjectsCompat.equals(getId(), tasks.getId()) &&
+              ObjectsCompat.equals(getTitle(), tasks.getTitle()) &&
+              ObjectsCompat.equals(getBody(), tasks.getBody()) &&
+              ObjectsCompat.equals(getState(), tasks.getState()) &&
+              ObjectsCompat.equals(getTeam(), tasks.getTeam()) &&
+              ObjectsCompat.equals(getCreatedAt(), tasks.getCreatedAt()) &&
+              ObjectsCompat.equals(getUpdatedAt(), tasks.getUpdatedAt());
       }
   }
   
@@ -105,7 +105,7 @@ public final class Task implements Model {
   @Override
    public String toString() {
     return new StringBuilder()
-      .append("Task {")
+      .append("Tasks {")
       .append("id=" + String.valueOf(getId()) + ", ")
       .append("title=" + String.valueOf(getTitle()) + ", ")
       .append("body=" + String.valueOf(getBody()) + ", ")
@@ -129,8 +129,8 @@ public final class Task implements Model {
    * @param id the id of the existing item this instance will represent
    * @return an instance of this model with only ID populated
    */
-  public static Task justId(String id) {
-    return new Task(
+  public static Tasks justId(String id) {
+    return new Tasks(
       id,
       null,
       null,
@@ -152,7 +152,7 @@ public final class Task implements Model {
   
 
   public interface BuildStep {
-    Task build();
+    Tasks build();
     BuildStep id(String id);
     BuildStep body(String body);
     BuildStep state(String state);
@@ -167,10 +167,10 @@ public final class Task implements Model {
     private String state;
     private Team team;
     @Override
-     public Task build() {
+     public Tasks build() {
         String id = this.id != null ? this.id : UUID.randomUUID().toString();
         
-        return new Task(
+        return new Tasks(
           id,
           title,
           body,

@@ -1,9 +1,9 @@
 # this is an auto generated file. This will be overwritten
-mutation CreateTask(
-  $input: CreateTaskInput!
-  $condition: ModelTaskConditionInput
+mutation CreateTasks(
+  $input: CreateTasksInput!
+  $condition: ModelTasksConditionInput
 ) {
-  createTask(input: $input, condition: $condition) {
+  createTasks(input: $input, condition: $condition) {
     id
     title
     body
@@ -14,26 +14,19 @@ mutation CreateTask(
       name
       tasks {
         nextToken
-        startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
-    _version
-    _deleted
-    _lastChangedAt
     createdAt
     updatedAt
   }
 }
-mutation UpdateTask(
-  $input: UpdateTaskInput!
-  $condition: ModelTaskConditionInput
+mutation UpdateTasks(
+  $input: UpdateTasksInput!
+  $condition: ModelTasksConditionInput
 ) {
-  updateTask(input: $input, condition: $condition) {
+  updateTasks(input: $input, condition: $condition) {
     id
     title
     body
@@ -44,26 +37,19 @@ mutation UpdateTask(
       name
       tasks {
         nextToken
-        startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
-    _version
-    _deleted
-    _lastChangedAt
     createdAt
     updatedAt
   }
 }
-mutation DeleteTask(
-  $input: DeleteTaskInput!
-  $condition: ModelTaskConditionInput
+mutation DeleteTasks(
+  $input: DeleteTasksInput!
+  $condition: ModelTasksConditionInput
 ) {
-  deleteTask(input: $input, condition: $condition) {
+  deleteTasks(input: $input, condition: $condition) {
     id
     title
     body
@@ -74,17 +60,10 @@ mutation DeleteTask(
       name
       tasks {
         nextToken
-        startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
-    _version
-    _deleted
-    _lastChangedAt
     createdAt
     updatedAt
   }
@@ -103,18 +82,11 @@ mutation CreateTeam(
         body
         state
         teamID
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
       nextToken
-      startedAt
     }
-    _version
-    _deleted
-    _lastChangedAt
     createdAt
     updatedAt
   }
@@ -133,18 +105,11 @@ mutation UpdateTeam(
         body
         state
         teamID
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
       nextToken
-      startedAt
     }
-    _version
-    _deleted
-    _lastChangedAt
     createdAt
     updatedAt
   }
@@ -163,18 +128,11 @@ mutation DeleteTeam(
         body
         state
         teamID
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
       nextToken
-      startedAt
     }
-    _version
-    _deleted
-    _lastChangedAt
     createdAt
     updatedAt
   }
