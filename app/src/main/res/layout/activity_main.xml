@@ -115,18 +115,25 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycle"
-        android:layout_width="400dp"
-        android:layout_height="292dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="6dp"
-        android:layout_marginBottom="280dp"
-        app:layout_constraintBottom_toTopOf="@+id/Settings"
+        android:layout_width="394dp"
+        android:layout_height="207dp"
+        android:layout_marginTop="43dp"
+        android:layout_marginBottom="102dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn1ToDetails"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/FirstText"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/teamName" />
 
+    <TextView
+        android:id="@+id/teamName"
+        android:layout_width="103dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="144dp"
+        android:layout_marginTop="152dp"
+        android:text="Team"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
