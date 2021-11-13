@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,16 +7,18 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/FirstText"
         android:layout_width="347dp"
         android:layout_height="73dp"
+        android:layout_marginStart="16dp"
         android:rotationX="0"
         android:text="My Tasks"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.265"
+        app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.059" />
 
@@ -35,7 +37,7 @@
         app:layout_constraintVertical_bias="0.915" />
 
     <Button
-        android:id="@+id/allTasks"
+        android:id="@+id/taskAll"
         android:layout_width="120dp"
         android:layout_height="55dp"
         android:backgroundTint="#90C8F4"
@@ -100,7 +102,7 @@
         app:layout_constraintVertical_bias="0.804" />
 
     <Button
-        android:id="@+id/mainToSetting"
+        android:id="@+id/Settings"
         android:layout_width="120dp"
         android:layout_height="55dp"
         android:backgroundTint="#90C8F4"
@@ -111,7 +113,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.916" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycle"
         android:layout_width="400dp"
         android:layout_height="292dp"
@@ -119,12 +121,12 @@
         android:layout_marginTop="28dp"
         android:layout_marginEnd="6dp"
         android:layout_marginBottom="280dp"
-        app:layout_constraintBottom_toTopOf="@+id/mainToSetting"
+        app:layout_constraintBottom_toTopOf="@+id/Settings"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/FirstText"
         app:layout_constraintVertical_bias="0.0" />
 
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
