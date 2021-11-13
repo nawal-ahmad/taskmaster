@@ -19,14 +19,14 @@ public class Espresso {
     @Rule
     public ActivityScenarioRule<MainActivity> rule = new ActivityScenarioRule<>(MainActivity.class);
 
-    @Test
-    public void testAddTask() {
-        onView(withId(R.id.addTask)).perform(click());
-        onView(withId(R.id.taskTitle)).perform(typeText("Sleeping"));
-        onView(withId(R.id.taskBody)).perform(typeText("all the night"));
-        onView(withId(R.id.taskState)).perform(typeText("not yet"));
+//    @Test
+//    public void testAddTask() {
 //        onView(withId(R.id.addTask)).perform(click());
-    }
+//        onView(withId(R.id.taskTitle)).perform(typeText("Sleeping"));
+//        onView(withId(R.id.taskBody)).perform(typeText("all the night"));
+//        onView(withId(R.id.taskState)).perform(typeText("not yet"));
+//        onView(withId(R.id.addTask)).perform(click());
+//    }
 
     @Test
     public void testRecycleView() {
@@ -47,13 +47,11 @@ public class Espresso {
         onView(withId(R.id.taskAll)).perform(click());
         onView(withId(R.id.allTaskData)).check(matches(isDisplayed()));
     }
-//    @Test
-//    public void checkTaskButton() {
-//        onView(withId(R.id.addTaskBtn)).perform(click());
-//        onView(withId(R.id.titleInput)).check(matches(isDisplayed()));
-//        onView(withId(R.id.bodyInput)).check(matches(isDisplayed()));
-//        onView(withId(R.id.stateInput)).check(matches(isDisplayed()));
-//
-//    }
-
+    @Test
+    public void checkTaskButton() {
+        onView(withId(R.id.addTask)).perform(click());
+        onView(withId(R.id.taskTitle)).check(matches(isDisplayed()));
+        onView(withId(R.id.taskBody)).check(matches(isDisplayed()));
+        onView(withId(R.id.taskState)).check(matches(isDisplayed()));
+    }
 }

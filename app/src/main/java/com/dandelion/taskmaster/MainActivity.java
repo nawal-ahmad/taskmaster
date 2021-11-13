@@ -1,22 +1,33 @@
 package com.dandelion.taskmaster;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
+import com.amplifyframework.AmplifyException;
+import com.amplifyframework.api.aws.AWSApiPlugin;
+import com.amplifyframework.api.graphql.model.ModelQuery;
+import com.amplifyframework.core.Amplify;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
 
+public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,39 +51,43 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button task1 = findViewById(R.id.btn1ToDetails);
-        task1.setOnClickListener(new View.OnClickListener() {
+        try {
+            Amplify.addPlugin(new AWSApiPlugin());
+            Amplify.configure(getApplicationContext());
+
+            Log.i("Main Activity", "Initialized Amplify");
+        } catch (AmplifyException error) {
+            Log.e("Main Activity", "Could not initialize Amplify", error);
+        }
+
+        List<Task> tasks = new ArrayList<>();
+        RecyclerView myTasks = findViewById(R.id.recycle);
+        myTasks.setLayoutManager(new LinearLayoutManager(this));
+        myTasks.setAdapter(new TaskAdapter(tasks));
+
+
+        Handler handler = new Handler(Looper.myLooper(), new Handler.Callback() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
-            public void onClick(View v) {
-                String taskTitle= task1.getText().toString();
-                Intent goToDetails = new Intent(MainActivity.this, TaskDetail.class);
-                goToDetails.putExtra("title",taskTitle);
-                startActivity(goToDetails);
+            public boolean handleMessage(@NonNull Message msg) {
+
+                myTasks.getAdapter().notifyDataSetChanged();
+                return false;
             }
         });
 
-        Button task2 = findViewById(R.id.btn2ToDetails);
-        task2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String taskTitle = task2.getText().toString();
-                Intent goToDetails = new Intent(MainActivity.this, TaskDetail.class);
-                goToDetails.putExtra("title",taskTitle);
-                startActivity(goToDetails);
-            }
-        });
-
-        Button task3 = findViewById(R.id.btn3ToDetails);
-        task3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String taskTitle = task3.getText().toString();
-                Intent goToDetails = new Intent(MainActivity.this, TaskDetail.class);
-                goToDetails.putExtra("title",taskTitle);
-                startActivity(goToDetails);
-            }
-        });
-
+        Amplify.API.query(
+                ModelQuery.list(com.amplifyframework.datastore.generated.model.Task.class),
+                response -> {
+                    for (com.amplifyframework.datastore.generated.model.Task todo : response.getData()) {
+                        Task taskOrg = new Task(todo.getTitle(), todo.getBody(), todo.getState());
+                        Log.i("graph testing", todo.getTitle());
+                        tasks.add(taskOrg);
+                    }
+                    handler.sendEmptyMessage(1);
+                },
+                error -> Log.e("MyAmplifyApp", "Query failure", error)
+        );
         Button settings = findViewById(R.id.Settings);
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,37 +96,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(goToSettings);
             }
         });
-        /////////////////////////////////////////lab28//////////////////////////////////////////////
-        // Create some data
-//        List<Task> tasks = new ArrayList<>();
-//        tasks.add(new Task("Task1","Task1 body", "new"));
-//        tasks.add(new Task("Task2","Task2 body", "assigned"));
-//        tasks.add(new Task("Task3","Task3 body", "complete"));
-//        // get the recycler view
-//        RecyclerView tasksRecyclerView= findViewById(R.id.recycle);
-//        // set a layout manager for this view
-//        tasksRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        // set the adapter for this recyclerView
-//        tasksRecyclerView.setAdapter(new TaskAdapter(tasks));
 
-        /////////////////////////////////////////lab29//////////////////////////////////////////////
-        // tasks from database
-        AppDatabase appDatabase;
-        appDatabase = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "tasks").allowMainThreadQueries().fallbackToDestructiveMigration().build();
-        List<Task> tasks = appDatabase.taskDao().getAll();
-
-        // get recycler view
-        RecyclerView allTasksRecyclerView = findViewById(R.id.recycle);
-
-        // set layout manager for the view (determine if liner list or grid list)
-        allTasksRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        // set the adapter for this recycler
-        allTasksRecyclerView.setAdapter(new TaskAdapter(tasks));
     }
 
     @Override
-    protected void onResume() {
+    protected void onResume(){
         super.onResume();
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
         String username = sharedPreferences.getString("username","user");
