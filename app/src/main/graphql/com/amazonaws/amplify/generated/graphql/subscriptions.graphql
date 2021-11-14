@@ -1,30 +1,162 @@
 # this is an auto generated file. This will be overwritten
-subscription OnCreateTask {
-  onCreateTask {
+subscription OnCreateTasks {
+  onCreateTasks {
     id
     title
     body
     state
+    teamID
+    team {
+      id
+      name
+      tasks {
+        nextToken
+        startedAt
+      }
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+    _version
+    _deleted
+    _lastChangedAt
     createdAt
     updatedAt
   }
 }
-subscription OnUpdateTask {
-  onUpdateTask {
+subscription OnUpdateTasks {
+  onUpdateTasks {
     id
     title
     body
     state
+    teamID
+    team {
+      id
+      name
+      tasks {
+        nextToken
+        startedAt
+      }
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+    _version
+    _deleted
+    _lastChangedAt
     createdAt
     updatedAt
   }
 }
-subscription OnDeleteTask {
-  onDeleteTask {
+subscription OnDeleteTasks {
+  onDeleteTasks {
     id
     title
     body
     state
+    teamID
+    team {
+      id
+      name
+      tasks {
+        nextToken
+        startedAt
+      }
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+    _version
+    _deleted
+    _lastChangedAt
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreateTeam {
+  onCreateTeam {
+    id
+    name
+    tasks {
+      items {
+        id
+        title
+        body
+        state
+        teamID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+    _version
+    _deleted
+    _lastChangedAt
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateTeam {
+  onUpdateTeam {
+    id
+    name
+    tasks {
+      items {
+        id
+        title
+        body
+        state
+        teamID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+    _version
+    _deleted
+    _lastChangedAt
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteTeam {
+  onDeleteTeam {
+    id
+    name
+    tasks {
+      items {
+        id
+        title
+        body
+        state
+        teamID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+    _version
+    _deleted
+    _lastChangedAt
     createdAt
     updatedAt
   }

@@ -4,6 +4,7 @@ package com.dandelion.taskmaster;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -19,14 +20,17 @@ public class Espresso {
     @Rule
     public ActivityScenarioRule<MainActivity> rule = new ActivityScenarioRule<>(MainActivity.class);
 
-//    @Test
-//    public void testAddTask() {
-//        onView(withId(R.id.addTask)).perform(click());
-//        onView(withId(R.id.taskTitle)).perform(typeText("Sleeping"));
-//        onView(withId(R.id.taskBody)).perform(typeText("all the night"));
-//        onView(withId(R.id.taskState)).perform(typeText("not yet"));
-//        onView(withId(R.id.addTask)).perform(click());
-//    }
+    @Test
+    public void testAddTask() {
+        onView(withId(R.id.addTask)).perform(click());
+        onView(withId(R.id.taskTitle)).perform(typeText("Sleeping"),closeSoftKeyboard() );
+        onView(withId(R.id.taskBody)).perform(typeText("all the night"),closeSoftKeyboard() );
+        onView(withId(R.id.taskState)).perform(typeText("not yet"),closeSoftKeyboard() );
+        onView(withId(R.id.addData)).perform(click());
+//        onView(withText("Sleeping")).check(matches(isDisplayed()));
+//        onView(withText("all the night")).check(matches(isDisplayed()));
+//        onView(withText("not yet")).check(matches(isDisplayed()));
+    }
 
     @Test
     public void testRecycleView() {
@@ -47,6 +51,7 @@ public class Espresso {
         onView(withId(R.id.taskAll)).perform(click());
         onView(withId(R.id.allTaskData)).check(matches(isDisplayed()));
     }
+
     @Test
     public void checkTaskButton() {
         onView(withId(R.id.addTask)).perform(click());
